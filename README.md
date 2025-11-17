@@ -1,25 +1,43 @@
-# IST105 Assignment 9: Cisco DNA Center Network Automation
+# Cisco DNA Center Network Automation App
 
-## Description
-This is a Django web application that demonstrates network automation using Cisco DNA Center REST API. The application provides a web interface to authenticate with Cisco DNA Center, list network devices, and view interface details for specific devices. All interactions are logged to a MongoDB database.
+## Overview
+This Django web application demonstrates network automation capabilities using the Cisco DNA Center REST API. It provides a user-friendly interface to interact with Cisco's DNA Center platform, allowing network administrators to view network devices, analyze interface configurations, and track all operations through comprehensive logging.
 
-## Features
-- Authentication with Cisco DNA Center sandbox
-- Retrieve and display network device inventory
-- Fetch and analyze interface configurations for specific devices
-- MongoDB integration for logging all API interactions
-- Responsive web interface with Django templates
-- Deployment scripts for AWS EC2 instances
+Whether you're a network engineer exploring automation possibilities or a developer learning network programmability, this application offers a practical example of integrating with enterprise networking platforms.
 
-## Prerequisites
+## Key Features
+- **Cisco DNA Center Integration**: Seamless authentication and communication with Cisco DNA Center
+- **Network Device Management**: View comprehensive inventory of network devices managed by DNA Center
+- **Interface Analysis**: Detailed inspection of device interfaces and their configurations
+- **Operation Logging**: All actions are automatically logged to MongoDB for audit and troubleshooting
+- **Responsive Web Interface**: Clean, intuitive UI built with Django templates
+- **Cloud Deployment Ready**: Includes scripts for easy deployment to AWS EC2 instances
+
+## How It Works
+The application connects to Cisco's DNA Center sandbox environment to retrieve real network data. Users can authenticate with the system, browse network devices, and examine interface details for any device. Every interaction is recorded in MongoDB, providing a complete audit trail of all operations.
+
+This makes it ideal for:
+- Learning network automation concepts
+- Prototyping Cisco DNA Center integrations
+- Monitoring network device configurations
+- Tracking changes in network infrastructure
+
+## Technology Stack
+- **Backend**: Python/Django
+- **Frontend**: HTML/CSS with Django Templates
+- **Database**: MongoDB for operation logging
+- **APIs**: Cisco DNA Center REST API
+- **Deployment**: AWS EC2 ready with provided scripts
+
+## Getting Started
+
+### Prerequisites
 - Python 3.8+
 - Django 5.2+
 - MongoDB
-- AWS CLI configured (for EC2 deployment)
+- AWS CLI configured (for cloud deployment)
 
-## Setup Instructions
-
-### Local Development Setup
+### Quick Start
 1. Clone the repository:
    ```
    git clone https://github.com/sbzsilva/IST105-Assignment9.git
@@ -53,7 +71,8 @@ This is a Django web application that demonstrates network automation using Cisc
 
 7. Access the application at `http://127.0.0.1:8000`
 
-### AWS EC2 Deployment
+### Cloud Deployment
+Deploy the application to AWS with the provided scripts:
 1. Run the setup script to create EC2 instances:
    ```
    ./setup_ec2.sh
@@ -76,7 +95,7 @@ This is a Django web application that demonstrates network automation using Cisc
    python3 manage.py runserver 0.0.0.0:8000
    ```
 
-## Project Structure
+## Application Components
 ```
 assignment9/
 ├── assignment9/                  # Django project settings
@@ -111,36 +130,34 @@ assignment9/
 └── install_webserver.sh         # Web server installation script
 ```
 
-## Usage
+## Using the Application
 1. Navigate to the home page to see an overview of the application
 2. Click "Authenticate" to connect to Cisco DNA Center and obtain an authentication token
 3. Click "Network Devices" to list all devices managed by DNA Center
 4. Click "Device Interfaces" to view interfaces for a specific device by IP address
 5. Click "View Logs" to see MongoDB logs of all operations
 
-## Cisco DNA Center Sandbox
-This application uses the Cisco DevNet sandbox environment:
+## Cisco DNA Center Connection
+The application uses the Cisco DevNet sandbox environment for demonstration purposes:
 - Host: sandboxdnac.cisco.com
 - Username: devnetuser
 - Password: Cisco123!
 
-## MongoDB Integration
-All operations are logged to MongoDB with the following information:
-- Timestamp
-- Action performed (authentication, device listing, interface retrieval)
-- Result (success/failure)
-- Details about the operation
+To connect to your own Cisco DNA Center instance, modify the credentials in [dna_center_cisco/dnac_config.py](file:///C:/Users/ssilva/college/IST105-Assignment9/dna_center_cisco/dnac_config.py).
+
+## Data Logging
+All operations are automatically logged to MongoDB with the following information:
+- Timestamp of the operation
+- Type of action performed (authentication, device listing, interface retrieval)
+- Success/failure status
+- Detailed information about the operation
 - Device IP address (when applicable)
 
-## Branches
-- main: Final stable code
-- development: Testing integration
+This logging feature enables administrators to track all interactions with the network infrastructure, making it easier to audit changes and troubleshoot issues.
 
-## Screenshots
-Include screenshots in your submission showing:
-1. Authentication token displayed in browser
-2. Device list output rendered via Django
-3. Interface details for at least one device IP
-4. Django app running in browser showing public IP
-5. MongoDB terminal showing saved log entries
-6. Your GitHub repository with all code
+## Contributing
+The project includes two main branches:
+- `main`: Stable production code
+- `development`: Testing and integration work
+
+Feel free to fork the repository and submit pull requests with improvements or bug fixes.
