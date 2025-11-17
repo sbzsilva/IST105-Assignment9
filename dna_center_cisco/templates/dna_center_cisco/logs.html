@@ -1,0 +1,46 @@
+{% extends 'dna_center_cisco/base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>MongoDB Interaction Logs</h2>
+    
+    {% if logs %}
+        <p>Showing the most recent 50 logs:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Action</th>
+                    <th>Result</th>
+                    <th>Details</th>
+                    <th>IP Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.action }}</td>
+                    <td>
+                        {% if log.result == "success" %}
+                            <span style="color: green;">{{ log.result }}</span>
+                        {% else %}
+                            <span style="color: red;">{{ log.result }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ log.details }}</td>
+                    <td>{{ log.ip_address|default:"N/A" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No logs found in MongoDB.</p>
+    {% endif %}
+    
+    <div style="margin-top: 20px;">
+        <a href="{% url 'index' %}" class="btn">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

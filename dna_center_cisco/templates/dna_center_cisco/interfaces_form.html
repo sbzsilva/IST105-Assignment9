@@ -1,0 +1,24 @@
+{% extends 'dna_center_cisco/base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>Device Interfaces</h2>
+    
+    <p>Enter the management IP address of a device to view its interfaces:</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="device_ip">Device IP Address:</label>
+            <input type="text" id="device_ip" name="device_ip" placeholder="e.g., 10.10.20.1" required>
+        </div>
+        
+        <button type="submit" class="btn">Get Interfaces</button>
+    </form>
+    
+    <div style="margin-top: 20px;">
+        <a href="{% url 'index' %}" class="btn">Back to Home</a>
+        <a href="{% url 'list_devices' %}" class="btn">View Devices List</a>
+    </div>
+</div>
+{% endblock %}

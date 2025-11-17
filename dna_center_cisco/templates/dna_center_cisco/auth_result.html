@@ -1,0 +1,30 @@
+{% extends 'dna_center_cisco/base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>Authentication Result</h2>
+    
+    {% if error %}
+        <div class="error">
+            <p><strong>Error:</strong> {{ error }}</p>
+        </div>
+        <a href="{% url 'authenticate' %}" class="btn">Try Again</a>
+    {% else %}
+        <div class="success">
+            <p><strong>Success!</strong> Authentication completed successfully.</p>
+        </div>
+        
+        <h3>Authentication Token:</h3>
+        <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; word-break: break-all;">
+            {{ token }}
+        </div>
+        
+        <p><strong>Note:</strong> This token is used for all subsequent API calls to Cisco DNA Center.</p>
+    {% endif %}
+    
+    <div style="margin-top: 20px;">
+        <a href="{% url 'index' %}" class="btn">Back to Home</a>
+        <a href="{% url 'list_devices' %}" class="btn">View Network Devices</a>
+    </div>
+</div>
+{% endblock %}

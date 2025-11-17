@@ -1,0 +1,48 @@
+{% extends 'dna_center_cisco/base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>Device Interfaces</h2>
+    
+    {% if error %}
+        <div class="error">
+            <p><strong>Error:</strong> {{ error }}</p>
+        </div>
+        <a href="{% url 'device_interfaces' %}" class="btn">Try Again</a>
+    {% elif interfaces %}
+        <h3>Interfaces for device: {{ device_ip }}</h3>
+        <p>Found {{ interfaces|length }} interfaces:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Interface</th>
+                    <th>Status</th>
+                    <th>VLAN</th>
+                    <th>Speed</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for interface in interfaces %}
+                <tr>
+                    <td>{{ interface.portName|default:"N/A" }}</td>
+                    <td>{{ interface.status|default:"N/A" }}</td>
+                    <td>{{ interface.vlanId|default:"N/A" }}</td>
+                    <td>{{ interface.speed|default:"N/A" }}</td>
+                    <td>{{ interface.description|default:"N/A" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No interfaces found for device {{ device_ip }}.</p>
+    {% endif %}
+    
+    <div style="margin-top: 20px;">
+        <a href="{% url 'index' %}" class="btn">Back to Home</a>
+        <a href="{% url 'device_interfaces' %}" class="btn">Check Another Device</a>
+        <a href="{% url 'list_devices' %}" class="btn">View Devices List</a>
+    </div>
+</div>
+{% endblock %}

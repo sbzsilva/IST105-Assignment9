@@ -1,0 +1,29 @@
+{% extends 'dna_center_cisco/base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>Welcome to Cisco DNA Center Network Automation</h2>
+    <p>This application demonstrates network automation using Cisco DNA Center REST API.</p>
+    
+    <h3>Features:</h3>
+    <ul>
+        <li>Authentication with Cisco DNA Center</li>
+        <li>Retrieve and display network device inventory</li>
+        <li>Fetch and analyze interface configurations</li>
+        <li>MongoDB integration for logging interactions</li>
+        <li>Django web interface for easy access</li>
+    </ul>
+    
+    <h3>Getting Started:</h3>
+    <p>Navigate through the menu to explore different functionalities:</p>
+    <ol>
+        <li><strong>Authenticate</strong> - Connect to Cisco DNA Center and obtain authentication token</li>
+        <li><strong>Network Devices</strong> - List all network devices managed by DNA Center</li>
+        <li><strong>Device Interfaces</strong> - View interface details for a specific device</li>
+        <li><strong>View Logs</strong> - See MongoDB logs of all operations</li>
+    </ol>
+    
+    <h3>About Cisco DNA Center:</h3>
+    <p>Cisco Digital Network Architecture (DNA) Center is a network management and automation platform that provides centralized control of network devices, automation of network configurations and policies, analytics for monitoring and troubleshooting, and intent-based networking.</p>
+</div>
+{% endblock %}

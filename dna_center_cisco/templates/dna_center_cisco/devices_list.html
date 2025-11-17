@@ -1,0 +1,54 @@
+{% extends 'dna_center_cisco/base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>Network Devices</h2>
+    
+    {% if error %}
+        <div class="error">
+            <p><strong>Error:</strong> {{ error }}</p>
+        </div>
+        <a href="{% url 'authenticate' %}" class="btn">Re-authenticate</a>
+    {% elif devices %}
+        <p>Found {{ devices|length }} network devices managed by Cisco DNA Center:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Hostname</th>
+                    <th>IP Address</th>
+                    <th>Platform</th>
+                    <th>Status</th>
+                    <th>Software Version</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for device in devices %}
+                <tr>
+                    <td>{{ device.hostname|default:"N/A" }}</td>
+                    <td>{{ device.managementIpAddress|default:"N/A" }}</td>
+                    <td>{{ device.platformId|default:"N/A" }}</td>
+                    <td>{{ device.reachabilityStatus|default:"N/A" }}</td>
+                    <td>{{ device.softwareVersion|default:"N/A" }}</td>
+                    <td>
+                        <form method="post" action="{% url 'device_interfaces' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="device_ip" value="{{ device.managementIpAddress }}">
+                            <button type="submit" class="btn" style="padding: 5px 10px; font-size: 14px;">View Interfaces</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No devices found.</p>
+    {% endif %}
+    
+    <div style="margin-top: 20px;">
+        <a href="{% url 'index' %}" class="btn">Back to Home</a>
+        <a href="{% url 'authenticate' %}" class="btn">Re-authenticate</a>
+    </div>
+</div>
+{% endblock %}

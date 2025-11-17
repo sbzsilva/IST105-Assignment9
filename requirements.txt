@@ -1,0 +1,4 @@
+Django>=5.2.3
+requests>=2.31.0
+pymongo>=4.6.0
+urllib3>=2.1.0
