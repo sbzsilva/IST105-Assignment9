@@ -53,7 +53,7 @@ class DNAC_Manager:
                 "result": "success",
                 "details": "Token obtained successfully"
             }
-            if logs_collection:
+            if logs_collection is not None:
                 logs_collection.insert_one(log_entry)
 
             return True
@@ -66,7 +66,7 @@ class DNAC_Manager:
                 "result": "failure",
                 "details": str(e)
             }
-            if logs_collection:
+            if logs_collection is not None:
                 logs_collection.insert_one(log_entry)
                 
             print(f" ❌  Authentication failed: {str(e)}")
@@ -96,7 +96,7 @@ class DNAC_Manager:
                 "result": "success",
                 "details": "Devices retrieved successfully"
             }
-            if logs_collection:
+            if logs_collection is not None:
                 logs_collection.insert_one(log_entry)
                 
             return response.json().get('response', [])
@@ -109,7 +109,7 @@ class DNAC_Manager:
                 "result": "failure",
                 "details": str(e)
             }
-            if logs_collection:
+            if logs_collection is not None:
                 logs_collection.insert_one(log_entry)
                 
             print(f" ❌  Failed to get devices: {str(e)}")
@@ -156,7 +156,7 @@ class DNAC_Manager:
                     "details": f"Device {device_ip} not found!",
                     "ip_address": device_ip
                 }
-                if logs_collection:
+                if logs_collection is not None:
                     logs_collection.insert_one(log_entry)
                     
                 print(f" ❌  Device {device_ip} not found!")
@@ -183,7 +183,7 @@ class DNAC_Manager:
                 "details": f"Interfaces retrieved for device {device_ip}",
                 "ip_address": device_ip
             }
-            if logs_collection:
+            if logs_collection is not None:
                 logs_collection.insert_one(log_entry)
                 
             return response.json().get('response', [])
@@ -197,7 +197,7 @@ class DNAC_Manager:
                 "details": str(e),
                 "ip_address": device_ip if 'device_ip' in locals() else None
             }
-            if logs_collection:
+            if logs_collection is not None:
                 logs_collection.insert_one(log_entry)
                 
             print(f" ❌  Failed to get interfaces: {str(e)}")
@@ -286,7 +286,7 @@ def device_interfaces_view(request):
 
 def view_logs(request):
     """View MongoDB logs"""
-    if logs_collection:
+    if logs_collection is not None:
         logs = list(logs_collection.find().sort("timestamp", -1).limit(50))
         # Convert ObjectId to string for serialization
         for log in logs:

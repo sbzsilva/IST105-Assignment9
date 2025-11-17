@@ -1,18 +1,24 @@
 #!/bin/bash
 
 # Update system
-sudo yum update -y
+sudo dnf update -y
 
-# Create MongoDB repo file
-echo "[mongodb-org-4.4]
+# Remove any existing MongoDB repo files
+sudo rm -f /etc/yum.repos.d/mongodb-org*.repo
+
+# Create MongoDB repo file for Amazon Linux 2023 - CORRECTED
+echo "[mongodb-org-7.0]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/4.4/x86_64/
+baseurl=https://repo.mongodb.org/yum/amazon/2023/mongodb-org/7.0/x86_64/
 gpgcheck=1
 enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc" | sudo tee /etc/yum.repos.d/mongodb-org-4.4.repo
+gpgkey=https://pgp.mongodb.com/server-7.0.asc" | sudo tee /etc/yum.repos.d/mongodb-org-7.0.repo
+
+# Clean dnf cache
+sudo dnf clean all
 
 # Install MongoDB
-sudo yum install -y mongodb-org
+sudo dnf install -y mongodb-org
 
 # Start MongoDB service
 sudo systemctl start mongod
@@ -28,11 +34,11 @@ if command -v firewall-cmd &> /dev/null; then
     sudo firewall-cmd --reload
 fi
 
-# Install git to clone repository (optional, for verification)
-sudo yum install git -y
+# Install the MongoDB Shell (mongosh) if not already included
+sudo dnf install -y mongodb-mongosh
 
 # Create the assignment9 database and logs collection
-mongo --eval "use assignment9; db.createCollection('logs')"
+mongosh --eval "use assignment9; db.createCollection('logs')"
 
 echo "MongoDB installation completed!"
 echo "MongoDB is now listening on 0.0.0.0:27017"

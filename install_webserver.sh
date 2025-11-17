@@ -24,15 +24,18 @@ cd ~
 git clone https://github.com/sbzsilva/IST105-Assignment9.git
 cd IST105-Assignment9/assignment9
 
-# Set environment variables for MongoDB connection (these need to be updated with actual IPs)
-echo "export MONGODB_HOST='localhost'" >> ~/.bashrc
+# Prompt for MongoDB IP address
+echo "Please enter the MongoDB server IP address:"
+read mongodb_ip
+
+# Set environment variables for MongoDB connection
+echo "export MONGODB_HOST='$mongodb_ip'" >> ~/.bashrc
 echo "export MONGODB_PORT=27017" >> ~/.bashrc
 echo "export MONGODB_DB='assignment9'" >> ~/.bashrc
 echo "export MONGODB_COLLECTION='logs'" >> ~/.bashrc
 
 echo "Web server installation completed!"
 echo "Next steps:"
-echo "1. Update the MONGODB_HOST environment variable in ~/.bashrc with the actual MongoDB private IP"
-echo "2. Run: source ~/venv/bin/activate"
-echo "3. Run: python3 manage.py migrate"
-echo "4. Run: python3 manage.py runserver 0.0.0.0:8000"
+echo "1. Run: source ~/venv/bin/activate"
+echo "2. Run: python3 manage.py migrate"
+echo "3. Run: python3 manage.py runserver 0.0.0.0:8000"
